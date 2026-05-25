@@ -1,4 +1,5 @@
-const BASE_URL = "http://127.0.0.1:5000";
+const BASE_URL =
+"https://rbac-management-system.onrender.com";
 let usersVisible = false;
 let rolesVisible = false;
 let permissionsVisible = false;
