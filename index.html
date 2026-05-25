@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RBAC System - Login</title>
+
+    <style>
+        body {
+    font-family: Arial;
+    background-color: #f4f6f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+        /* 🔹 Project Title */
+        .project-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 25px;
+}
+
+        .login-box {
+    background: white;
+    padding: 40px;              /* 🔥 increased */
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    width: 380px;              /* 🔥 bigger width */
+}
+/* Heading */
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+
+       input {
+    width: 100%;
+    padding: 12px;             /* 🔥 bigger input */
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;    /* 🔥 important for alignment */
+    font-size: 14px;
+}
+
+        button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+        button:hover {
+    background-color: #2980b9;
+}
+
+        #error {
+    color: red;
+    margin-top: 10px;
+}
+    </style>
+</head>
+
+<body>
+
+<!-- ✅ Project Title -->
+<div class="project-title">
+    RBAC Management System
+</div>
+
+<div class="login-box">
+    <h2>Login</h2>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="error"></p>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

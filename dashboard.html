@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RBAC Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2 class="logo">RBAC Admin</h2>
+
+    <button class="menu-btn" onclick="toggleUsers()">
+        👤 Users
+    </button>
+
+    <button class="menu-btn" onclick="toggleRoles()">
+        🛡 Roles
+    </button>
+
+       <button class="menu-btn"
+            onclick="togglePermissions()">
+        🔐 Permissions
+    </button>
+
+    <button class="logout-btn" onclick="logout()">
+        🚪 Logout
+    </button>
+   </div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <h1>Role Based Access Control Dashboard</h1>
+    </div>
+
+    <!-- DEFAULT MESSAGE -->
+     <!-- DASHBOARD STATS -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <h3>Total Users</h3>
+
+        <p id="totalUsers">0</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>Total Roles</h3>
+
+        <p id="totalRoles">0</p>
+
+    </div>
+
+    <div class="stat-card"
+          id="permissionStatCard">
+
+        <h3>Permission Rules</h3>
+
+        <p id="totalPermissions">0</p>
+
+    </div>
+
+</div>
+    <div id="defaultMessage" class="welcome-card">
+        <h2>Welcome Admin 👋</h2>
+
+        <p>
+            This dashboard helps you manage:
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-box">
+                <h3>👤 Users</h3>
+                <p>Manage registered users and their access.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>🛡 Roles</h3>
+                <p>Create and manage roles like Admin & Manager.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>🔐 Permissions</h3>
+                <p>Control Read, Write, Delete access.</p>
+            </div>
+
+        </div>
+    </div>
+
+   <!-- USERS SECTION -->
+<div class="card" id="usersSection" style="display:none;">
+
+    <!-- TOP BAR -->
+    <div class="section-header">
+
+        <h2>Users</h2>
+
+        <div class="search-buttons">
+            <button onclick="toggleUserSearch()">🔍 Search</button>
+            <button onclick="clearUserSearch()">❌ Clear</button>
+        </div>
+
+    </div>
+
+    <!-- SEARCH INPUT -->
+    <input type="text"
+           id="userSearch"
+           placeholder="Search users..."
+           style="display:none; margin-bottom:20px;">
+
+    <!-- ADD USER FORM -->
+    <div class="form-box">
+
+        <input type="text"
+               id="userName"
+               placeholder="Enter Name">
+
+        <input type="email"
+               id="userEmail"
+               placeholder="Enter Email">
+
+        <input type="password"
+               id="userPassword"
+               placeholder="Enter Password">
+
+        <select id="userRoleId">
+
+    <option value="">
+        Select Role
+    </option>
+
+</select>
+
+        <button onclick="addUser()">
+            ➕ Add User
+        </button>
+
+    </div>
+
+    <!-- TABLE -->
+    <table id="userTable">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
+
+</div>
+
+    <!-- ROLES SECTION -->
+    <div class="card" id="rolesSection" style="display:none;">
+
+        <div class="section-header">
+            <!-- ADD ROLE -->
+<div class="form-box">
+
+    <input type="text"
+           id="roleName"
+           placeholder="Enter Role Name">
+
+    <button onclick="addRole()">
+        ➕ Add Role
+    </button>
+
+</div>
+        <h2>Roles</h2>
+
+            <div>
+                <button onclick="toggleRoleSearch()">🔍 Search</button>
+                <button onclick="clearRoleSearch()">❌ Clear</button>
+            </div>
+        </div>
+
+        <input type="text"
+               id="roleSearch"
+               placeholder="Search roles..."
+               style="display:none; margin-bottom:15px;">
+
+        <table id="roleTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Role Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+    </div>
+
+   <!-- PERMISSIONS SECTION -->
+  <div class="card"
+     id="permissionsSection"
+     style="display:none;">
+
+    <h2>Permission Management</h2>
+
+    <div class="form-box">
+
+       <select id="permissionRoleId">
+
+    <option value="">
+        Select Role
+    </option>
+
+</select>
+
+        <label>
+            <input type="checkbox" id="canRead">
+            Read
+        </label>
+
+        <label>
+            <input type="checkbox" id="canWrite">
+            Write
+        </label>
+
+        <label>
+            <input type="checkbox" id="canDelete">
+            Delete
+        </label>
+
+        <button id="savePermissionBtn"
+        onclick="setPermission()">
+            Save Permission
+        </button>
+        <p id="permissionMessage"
+   style="display:none;
+          color:red;
+          margin-top:10px;">
+
+    You do not have permission to manage permissions.
+
+</p>
+
+    </div>
+
+    <table id="permissionTable">
+
+        <thead>
+            <tr>
+                <th>Role ID</th>
+                <th>Read</th>
+                <th>Write</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
+
+    </div>
+</div>
+   <!-- EDIT USER MODAL -->
+
+ <div id="editUserModal"
+     class="modal">
+
+ <div class="modal-content">
+
+        <span class="close"
+              onclick="closeEditModal()">
+            &times;
+        </span>
+
+        <h2>Edit User</h2>
+
+        <input type="hidden"
+               id="editUserId">
+
+        <input type="text"
+               id="editUserName"
+               placeholder="Enter Name">
+
+        <input type="email"
+               id="editUserEmail"
+               placeholder="Enter Email">
+
+        <button onclick="saveUserEdit()">
+            Save Changes
+        </button>
+
+    </div>
+
+</div>
+<!-- DELETE MODAL -->
+
+<div id="deleteModal"
+     class="modal">
+
+    <div class="modal-content">
+
+        <span class="close"
+              onclick="closeDeleteModal()">
+            &times;
+        </span>
+
+        <h2>Confirm Delete</h2>
+
+        <p id="deleteMessage">
+            Are you sure you want to delete?
+        </p>
+
+        <input type="hidden"
+               id="deleteId">
+
+        <input type="hidden"
+               id="deleteType">
+
+        <div class="modal-actions">
+
+            <button onclick="confirmDelete()"
+                    class="delete-btn">
+                Delete
+            </button>
+
+            <button onclick="closeDeleteModal()">
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- TOAST CONTAINER -->
+<div id="toastContainer"></div>
+<script src="app.js"></script>
+
+</body>
+</html>
