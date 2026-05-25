@@ -24,6 +24,12 @@ jwt = JWTManager(app)
 def is_first_setup():
     return Role.query.count() == 0
 
+@app.route("/")
+def home():
+    return {
+        "message": "RBAC Management System API is Running Successfully"
+    }
+
 
 @app.route('/add-roles', methods=['POST'])
 def add_roles():
