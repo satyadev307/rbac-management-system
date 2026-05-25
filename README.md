@@ -101,6 +101,28 @@ python app.py
 
 ---
 
+# Screenshots
+
+## Login Page
+
+![Login](screenshots/login.png)
+
+## Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+## Permissons
+
+![Permissions](screenshots/permissions.png)
+
+## Roles
+
+![Roles](screenshots/roles.png)
+
+## Users
+
+![Users](screenshots/users.png)
+
 # Future Improvements
 
 - Pagination
