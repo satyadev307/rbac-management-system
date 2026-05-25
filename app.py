@@ -346,5 +346,27 @@ def delete_role(role_id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()   
+        # Create default admin role
+    if not Role.query.filter_by(role_name="Admin").first():
+        admin_role = Role(role_name="Admin")
+        db.session.add(admin_role)
+        db.session.commit()
+
+    # Create default admin user
+    if not User.query.filter_by(email="admin@gmail.com").first():
+
+        hashed_password = bcrypt.generate_password_hash(
+            "admin123"
+        ).decode("utf-8")
+
+        admin_user = User(
+            name="Admin",
+            email="admin@gmail.com",
+            password=hashed_password,
+            role_id=1
+        )
+
+        db.session.add(admin_user)
+        db.session.commit()
     if __name__ == "__main__":
        app.run(host="0.0.0.0", port=5000)
