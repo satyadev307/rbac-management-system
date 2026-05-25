@@ -345,28 +345,39 @@ def delete_role(role_id):
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()   
-        # Create default admin role
-    if not Role.query.filter_by(role_name="Admin").first():
+
+      db.create_all()
+
+    # Create Admin Role
+    admin_role = Role.query.filter_by(role_name="Admin").first()
+
+    if not admin_role:
         admin_role = Role(role_name="Admin")
         db.session.add(admin_role)
         db.session.commit()
+        print("✅ Admin Role Created")
 
-    # Create default admin user
-    if not User.query.filter_by(email="admin@gmail.com").first():
+    # Create Admin User
+    admin_user = User.query.filter_by(
+        email="admin@gmail.com"
+    ).first()
+
+    if not admin_user:
 
         hashed_password = bcrypt.generate_password_hash(
             "admin123"
         ).decode("utf-8")
 
-        admin_user = User(
+        new_admin = User(
             name="Admin",
             email="admin@gmail.com",
             password=hashed_password,
-            role_id=1
+            role_id=admin_role.id
         )
 
-        db.session.add(admin_user)
+        db.session.add(new_admin)
         db.session.commit()
+
+        print("✅ Admin User Created")
     if __name__ == "__main__":
        app.run(host="0.0.0.0", port=5000)
